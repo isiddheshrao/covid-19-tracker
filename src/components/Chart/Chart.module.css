@@ -3,3 +3,11 @@
     justify-content: center;
     width: 85%;
 }
+
+/* ADDING RESPONSIVENESS FOR MOBILE DEVICES */
+
+@media (max-width: 770px){
+    .container {
+        width: 100%;
+    }
+}

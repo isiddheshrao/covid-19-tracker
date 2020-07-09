@@ -4,9 +4,12 @@ import styles from './App.module.css';
 
 import {fetchData} from './api';
 
+import CoronaImage from './images/image.png';
+
 class App extends React.Component {
     state = {
         data: {},
+        country: '',
     }
 
     // getting data from api
@@ -17,13 +20,21 @@ class App extends React.Component {
         this.setState({ data: fetchedData });
     }
 
+    handleCountryChange = async (country) => {
+        const fetchedData = await fetchData(country);
+        this.setState({ data: fetchedData, country: country });
+        // console.log(country);
+        // FETCH COUNTRY AND THEN SET STATE
+    }
+
     render() {
-        const { data } = this.state
+        const { data, country } = this.state
         return (
             <div className={styles.container}>
+                <img className={styles.image} src={CoronaImage} alt="COVID-19"/>
                 <Cards data={data}/>
-                <CountryPicker />
-                <Chart />
+                <CountryPicker handleCountryChange= {this.handleCountryChange} />
+                <Chart data={data} country={country} />
             </div>
         );
     }
